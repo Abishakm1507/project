@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assessment - Serenifi</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --background: #faeee7;
+            --headline: #33272a;
+            --paragraph: #594a4e;
+            --button: #ff8ba7;
+            --button-text: #33272a;
+            --stroke: #33272a;
+            --main: #fffffe;
+            --highlight: #ff8ba7;
+            --secondary: #ffc6c7;
+            --tertiary: #c3f0ca;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--headline);
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--main);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--headline);
+        }
+
+        .title h1 {
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            color: var(--paragraph);
+            font-size: 1.1em;
+        }
+
+        .question-card {
+            background: var(--main);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            transition: transform 0.3s;
+            border: 1px solid var(--secondary);
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .question-title {
+            font-size: 1.1em;
+            color: var(--headline);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: var(--main);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--secondary);
+            color: var(--paragraph);
+        }
+
+        .radio-option:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .radio-option input[type="radio"],
+        .radio-option input[type="checkbox"] {
+            margin-right: 12px;
+            accent-color: var(--button);
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            font-size: 1em;
+            margin-top: 8px;
+            transition: border-color 0.3s;
+        }
+
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--button);
+        }
+
+        .submit-btn {
+            background: var(--button);
+            color: var(--button-text);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .privacy-note {
+            text-align: center;
+            color: var(--paragraph);
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .required {
+            color: var(--button);
+            margin-left: 3px;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: var(--button);
+            transition: width 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-card {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .question-card:nth-child(1) { animation-delay: 0.1s; }
+        .question-card:nth-child(2) { animation-delay: 0.2s; }
+        .question-card:nth-child(3) { animation-delay: 0.3s; }
+        .question-card:nth-child(4) { animation-delay: 0.4s; }
+        .question-card:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>Mental Health Assessment</h1>
+            <p>Help us understand you better to provide personalized support</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <form id="assessmentForm" onsubmit="handleSubmit(event)">
+            <div class="question-card">
+                <div class="question-title">1. What is your age range?<span class="required">*</span></div>
+                <select required name="age" onchange="updateProgress()">
+                    <option value="">Select your age range</option>
+                    <option value="13-17">13-17 years</option>
+                    <option value="18-24">18-24 years</option>
+                    <option value="25-34">25-34 years</option>
+                    <option value="35-44">35-44 years</option>
+                    <option value="45-54">45-54 years</option>
+                    <option value="55+">55+ years</option>
+                </select>
+            </div>
+
+            <div class="question-card">
+                <div class="question-title">2. How would you rate your stress level in the past week?<span class="required">*</span></div>
+                <div class="options-container">
+                    <label class="radio-option">
+                        <input type="radio" name="stress" value="1" required onchange="updateProgress()">
+                        Very Low - I feel completely relaxed
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="stress" value="2" onchange="updateProgress()">
+                        Low - I feel mostly relaxed
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="stress" value="3" onchange="updateProgress()">
+                        Moderate - I feel somewhat stressed
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="stress" value="4" onchange="updateProgress()">
+                        High - I feel very stressed
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="stress" value="5" onchange="updateProgress()">
+                        Very High - I feel overwhelmed
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-title">3. How would you describe your sleep quality?<span class="required">*</span></div>
+                <div class="options-container">
+                    <label class="radio-option">
+                        <input type="radio" name="sleep" value="excellent" required onchange="updateProgress()">
+                        Excellent - I sleep well and feel refreshed
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sleep" value="good" onchange="updateProgress()">
+                        Good - I usually sleep well
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sleep" value="fair" onchange="updateProgress()">
+                        Fair - My sleep is inconsistent
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sleep" value="poor" onchange="updateProgress()">
+                        Poor - I often have trouble sleeping
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sleep" value="very-poor" onchange="updateProgress()">
+                        Very Poor - I have severe sleep issues
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-title">4. What are your main sources of stress or anxiety?<span class="required">*</span></div>
+                <div class="options-container">
+                    <label class="radio-option">
+                        <input type="checkbox" name="stressors" value="work" onchange="updateProgress()">
+                        Work/School
+                    </label>
+                    <label class="radio-option">
+                        <input type="checkbox" name="stressors" value="relationships" onchange="updateProgress()">
+                        Relationships
+                    </label>
+                    <label class="radio-option">
+                        <input type="checkbox" name="stressors" value="financial" onchange="updateProgress()">
+                        Financial Issues
+                    </label>
+                    <label class="radio-option">
+                        <input type="checkbox" name="stressors" value="health" onchange="updateProgress()">
+                        Health Concerns
+                    </label>
+                    <label class="radio-option">
+                        <input type="checkbox" name="stressors" value="other" onchange="updateProgress()">
+                        Other
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-title">5. What are your goals for using this platform?<span class="required">*</span></div>
+                <textarea 
+                    name="goals" 
+                    rows="4" 
+                    placeholder="e.g., Reduce stress, Improve sleep, Learn meditation..."
+                    required
+                    onchange="updateProgress()"
+                    oninput="updateProgress()"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" onclick="location.href='home.html'">Complete & Continue</button>
+        </form>
+
+        <p class="privacy-note">
+            🔒 Your privacy is important to us. All information provided will be kept confidential.
+        </p>
+    </div>
+
+    <script>
+        function updateProgress() {
+            const form = document.getElementById('assessmentForm');
+            const inputs = form.querySelectorAll('input, select, textarea');
+            let completed = 0;
+            let total = 5; // Total number of questions
+
+            // Check age
+            if (form.age.value) completed++;
+            
+            // Check stress
+            if (form.stress.value) completed++;
+            
+            // Check sleep
+            if (form.sleep.value) completed++;
+            
+            // Check stressors (at least one)
+            const stressors = form.querySelectorAll('input[name="stressors"]:checked');
+            if (stressors.length > 0) completed++;
+            
+            // Check goals
+            if (form.goals.value.trim().length > 0) completed++;
+
+            const progress = (completed / total) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                if (key === 'stressors') {
+                    if (!data[key]) data[key] = [];
+                    data[key].push(value);
+                } else {
+                    data[key] = value;
+                }
+            }
+
+            // Store in localStorage
+            localStorage.setItem('assessmentData', JSON.stringify(data));
+
+            // Show success message and redirect
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.textContent = 'Assessment Complete! Redirecting...';
+            submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+            
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 1500);
+        }
+
+        // Initialize progress bar
+        document.addEventListener('DOMContentLoaded', updateProgress);
+    </script>
+</body>
+</html>

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Community - SereniFI</title>
+    <style>
+        /* Global styles */
+        :root {
+            --background: #faeee7;
+            --headline: #33272a;
+            --paragraph: #594a4e;
+            --button: #ff8ba7;
+            --button-text: #33272a;
+            --stroke: #33272a;
+            --main: #fffffe;
+            --highlight: #ff8ba7;
+            --secondary: #ffc6c7;
+            --tertiary: #c3f0ca;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--headline);
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            background-color: var(--main);
+            border-bottom: 1px solid var(--secondary);
+        }
+
+        .nav-item {
+            color: var(--headline);
+        }
+
+        .nav-item:hover {
+            background-color: var(--secondary);
+        }
+
+        .community-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .create-post-btn {
+            background-color: var(--button);
+            color: var(--button-text);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .create-post-btn:hover {
+            background-color: var(--highlight);
+            transform: translateY(-2px);
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            gap: 20px;
+        }
+
+        .left-sidebar, .right-sidebar {
+            background: var(--main);
+            border-radius: 10px;
+            padding: 20px;
+            height: fit-content;
+        }
+
+        .user-profile {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--secondary);
+        }
+
+        .user-bio {
+            color: var(--paragraph);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: var(--button);
+            font-size: 16px;
+        }
+
+        .stat-label {
+            color: var(--paragraph);
+        }
+
+        .community-feed {
+            background: var(--main);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .post {
+            border-bottom: 1px solid var(--secondary);
+            padding: 20px 0;
+        }
+
+        .post-author {
+            color: var(--headline);
+        }
+
+        .post-time {
+            color: var(--paragraph);
+        }
+
+        .post-content p {
+            color: var(--paragraph);
+        }
+
+        .post-actions {
+            color: var(--paragraph);
+        }
+
+        .action-btn:hover {
+            color: var(--button);
+        }
+
+        .action-btn i.fas {
+            color: var(--button);
+        }
+
+        .topic-item {
+            border-bottom: 1px solid var(--secondary);
+        }
+
+        .topic-item:hover {
+            background-color: var(--tertiary);
+        }
+
+        .topic-icon {
+            background: var(--secondary);
+        }
+
+        .topic-info p {
+            color: var(--paragraph);
+        }
+
+        .follow-btn {
+            background: var(--button);
+            color: var(--button-text);
+            border: none;
+            padding: 5px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .follow-btn:hover {
+            background: var(--highlight);
+        }
+
+        .section-title {
+            color: var(--headline);
+        }
+
+        /* Create Post Modal Styles */
+        .create-post-modal {
+            background-color: rgba(51, 39, 42, 0.5);
+        }
+
+        .create-post-content {
+            background: var(--main);
+        }
+
+        .close-modal {
+            color: var(--headline);
+        }
+
+        .create-post-content h2 {
+            color: var(--headline);
+        }
+
+        .post-form textarea {
+            border: 1px solid var(--secondary);
+            color: var(--paragraph);
+            background: var(--main);
+        }
+
+        .image-upload-label {
+            background: var(--secondary);
+            color: var(--button-text);
+        }
+
+        .image-upload-label:hover {
+            background: var(--button);
+            color: var(--button-text);
+        }
+
+        .submit-post-btn {
+            background: var(--button);
+            color: var(--button-text);
+        }
+
+        .submit-post-btn:hover {
+            background: var(--highlight);
+        }
+
+        .search-bar {
+            background: var(--main);
+            border: 1px solid var(--secondary);
+            color: var(--paragraph);
+        }
+
+        .search-bar:focus {
+            border-color: var(--button);
+        }
+
+        .community-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+
+        .user-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            font-size: 12px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+
+        .post-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-info {
+            flex-grow: 1;
+        }
+
+        .post-content {
+            margin-bottom: 15px;
+        }
+
+        .post-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .trending-topics {
+            margin-top: 20px;
+        }
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .topic-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .topic-info h4 {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .topic-info p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .suggested-users {
+            margin-top: 20px;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--secondary);
+        }
+
+        .user-item-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .user-item-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-item-info h4 {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .user-item-info p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .image-preview {
+            display: none;
+            max-width: 100%;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 1024px) {
+            .community-grid {
+                grid-template-columns: 1fr 2fr;
+            }
+            .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+            .left-sidebar {
+                display: none;
+            }
+        }
+
+        .create-post-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .create-post-modal.active {
+            display: flex;
+        }
+
+        .create-post-content {
+            background: var(--main);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .create-post-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .post-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .post-form textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .post-form input[type="file"] {
+            display: none;
+        }
+
+        .image-upload-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: var(--secondary);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .image-upload-label:hover {
+            background: var(--button);
+        }
+
+        .submit-post-btn {
+            background: var(--button);
+            color: var(--button-text);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .submit-post-btn:hover {
+            background: var(--highlight);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar" role="navigation">
+        <img src="/assets/serenifi-logo.png" alt="Serenifi Logo">
+        <a href="home.html" class="nav-item">🏠 Home</a>
+        <a href="journal.html" class="nav-item">📔 Journal</a>
+        <a href="analytics.html" class="nav-item">📊 Analytics</a>
+        <a href="challenge.html" class="nav-item">🎯 Challenge</a>
+        <a href="reward.html" class="nav-item">🎁 Rewards</a>
+        <a href="game.html" class="nav-item">🎮 Games</a>
+        <a href="music.html" class="nav-item">🎵 Music</a>
+        <a href="webinar.html" class="nav-item">💻 Webinar</a>
+        <a href="profile.html" class="nav-item">👤 Profile</a>
+        <a href="community.html" class="nav-item active" aria-current="page">👥 Community</a>
+        <a href="settings.html" class="nav-item">⚙ Settings</a>
+        <a href="getstarted.html" class="nav-item logout">↪ Logout</a>
+    </nav>
+
+    <div class="main-content">
+        <header class="header">
+            <div class="profile-pic"> 
+                <img src="/assets/profile.jpg" alt="Profile">
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search community...">
+            </div>
+            <div class="header-icons">
+                <button class="icon-button">🔔</button>
+                <button class="icon-button">⚙</button>
+                <button class="icon-button">👤</button>
+            </div>
+        </header>
+
+        <div class="community-container">
+            <div class="community-header">
+                <h2>Community</h2>
+                <button class="create-post-btn">Create Post</button>
+            </div>
+
+            <div class="community-grid">
+                <!-- Left Sidebar -->
+                <div class="left-sidebar">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="/assets/profile.jpg" alt="User Avatar">
+                        </div>
+                        <h3 class="user-name">John Doe</h3>
+                        <p class="user-bio">Mental health enthusiast | Wellness advocate</p>
+                        <div class="user-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">150</div>
+                                <div>Posts</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">2.5k</div>
+                                <div>Followers</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">1.2k</div>
+                                <div>Following</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trending-topics">
+                        <h3 class="section-title">Trending Topics</h3>
+                        <div class="topic-item">
+                            <div class="topic-icon">🧘</div>
+                            <div class="topic-info">
+                                <h4>Mindfulness</h4>
+                                <p>1.2k posts</p>
+                            </div>
+                        </div>
+                        <div class="topic-item">
+                            <div class="topic-icon">💪</div>
+                            <div class="topic-info">
+                                <h4>Mental Strength</h4>
+                                <p>890 posts</p>
+                            </div>
+                        </div>
+                        <div class="topic-item">
+                            <div class="topic-icon">🌱</div>
+                            <div class="topic-info">
+                                <h4>Self Growth</h4>
+                                <p>756 posts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Feed -->
+                <div class="community-feed">
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="post-avatar">
+                                <img src="/assets/profile.jpg" alt="User Avatar">
+                            </div>
+                            <div class="post-info">
+                                <h4 class="post-author">Sarah Johnson</h4>
+                                <span class="post-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p>Just completed my 30-day mindfulness challenge! The journey has been incredible, and I've noticed significant improvements in my mental well-being. Remember, small steps lead to big changes! 🧘‍♀️✨ #MentalHealth #Mindfulness</p>
+                            <img src="https://th.bing.com/th/id/OIP._wF_E0rWTi8Rg21KCEFATgHaF7?w=900&h=720&rs=1&pid=ImgDetMain" alt="Mindfulness" class="post-image">
+                        </div>
+                        <div class="post-actions">
+                            <div class="action-btn">
+                                <i class="far fa-heart"></i>
+                                <span>245</span>
+                            </div>
+                            <div class="action-btn">
+                                <i class="far fa-comment"></i>
+                                <span>32</span>
+                            </div>
+                            <div class="action-btn">
+                                <i class="far fa-share-square"></i>
+                                <span>12</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="post-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar">
+                            </div>
+                            <div class="post-info">
+                                <h4 class="post-author">Michael Chen</h4>
+                                <span class="post-time">5 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p>Today's mental health tip: Take breaks between tasks. It's not about working non-stop; it's about maintaining a healthy balance. What's your favorite way to take a mental break? 🌟 #MentalHealthTips #Wellness</p>
+                        </div>
+                        <div class="post-actions">
+                            <div class="action-btn">
+                                <i class="far fa-heart"></i>
+                                <span>178</span>
+                            </div>
+                            <div class="action-btn">
+                                <i class="far fa-comment"></i>
+                                <span>45</span>
+                            </div>
+                            <div class="action-btn">
+                                <i class="far fa-share-square"></i>
+                                <span>8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="right-sidebar">
+                    <div class="suggested-users">
+                        <h3 class="section-title">Suggested Users</h3>
+                        <div class="user-item">
+                            <div class="user-item-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User Avatar">
+                            </div>
+                            <div class="user-item-info">
+                                <h4>Emma Wilson</h4>
+                                <p>Mental Health Coach</p>
+                            </div>
+                            <button class="follow-btn">Follow</button>
+                        </div>
+                        <div class="user-item">
+                            <div class="user-item-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User Avatar">
+                            </div>
+                            <div class="user-item-info">
+                                <h4>David Kim</h4>
+                                <p>Wellness Expert</p>
+                            </div>
+                            <button class="follow-btn">Follow</button>
+                        </div>
+                        <div class="user-item">
+                            <div class="user-item-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User Avatar">
+                            </div>
+                            <div class="user-item-info">
+                                <h4>Lisa Chen</h4>
+                                <p>Mindfulness Instructor</p>
+                            </div>
+                            <button class="follow-btn">Follow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="create-post-modal" id="createPostModal">
+        <div class="create-post-content">
+            <button class="close-modal">&times;</button>
+            <h2>Create a Post</h2>
+            <form class="post-form" id="postForm">
+                <textarea placeholder="What's on your mind?" required></textarea>
+                <label class="image-upload-label">
+                    <i class="far fa-image"></i>
+                    Add Image
+                    <input type="file" accept="image/*" id="imageInput">
+                </label>
+                <img id="imagePreview" class="image-preview">
+                <button type="submit" class="submit-post-btn">Post</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Like functionality
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                const count = this.querySelector('span');
+                
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    count.textContent = parseInt(count.textContent) + 1;
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    count.textContent = parseInt(count.textContent) - 1;
+                }
+            });
+        });
+
+        // Follow button functionality
+        document.querySelectorAll('.follow-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.textContent === 'Follow') {
+                    this.textContent = 'Following';
+                    this.style.background = '#666';
+                } else {
+                    this.textContent = 'Follow';
+                    this.style.background = '#deb887';
+                }
+            });
+        });
+
+        // Create post modal functionality
+        const createPostBtn = document.querySelector('.create-post-btn');
+        const createPostModal = document.getElementById('createPostModal');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const postForm = document.getElementById('postForm');
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const communityFeed = document.querySelector('.community-feed');
+
+        createPostBtn.addEventListener('click', () => {
+            createPostModal.classList.add('active');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            createPostModal.classList.remove('active');
+            resetForm();
+        });
+
+        // Close modal when clicking outside
+        createPostModal.addEventListener('click', (e) => {
+            if (e.target === createPostModal) {
+                createPostModal.classList.remove('active');
+                resetForm();
+            }
+        });
+
+        // Image preview functionality
+        imageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.style.display = 'block';
+                    imagePreview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form submission
+        postForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const content = this.querySelector('textarea').value;
+            const currentTime = new Date().toLocaleTimeString();
+            
+            // Create new post HTML
+            const newPost = document.createElement('div');
+            newPost.className = 'post';
+            newPost.innerHTML = `
+                <div class="post-header">
+                    <div class="post-avatar">
+                        <img src="/assets/profile.jpg" alt="User Avatar">
+                    </div>
+                    <div class="post-info">
+                        <h4 class="post-author">John Doe</h4>
+                        <span class="post-time">Just now</span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>${content}</p>
+                    ${imagePreview.src && imagePreview.style.display !== 'none' ? 
+                        `<img src="${imagePreview.src}" alt="Post Image" class="post-image">` : ''}
+                </div>
+                <div class="post-actions">
+                    <div class="action-btn">
+                        <i class="far fa-heart"></i>
+                        <span>0</span>
+                    </div>
+                    <div class="action-btn">
+                        <i class="far fa-comment"></i>
+                        <span>0</span>
+                    </div>
+                    <div class="action-btn">
+                        <i class="far fa-share-square"></i>
+                        <span>0</span>
+                    </div>
+                </div>
+            `;
+
+            // Add new post to the top of the feed
+            communityFeed.insertBefore(newPost, communityFeed.firstChild);
+
+            // Reset form and close modal
+            resetForm();
+            createPostModal.classList.remove('active');
+
+            // Add event listeners to new post's action buttons
+            const newActionBtns = newPost.querySelectorAll('.action-btn');
+            newActionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    const count = this.querySelector('span');
+                    
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        count.textContent = parseInt(count.textContent) + 1;
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        count.textContent = parseInt(count.textContent) - 1;
+                    }
+                });
+            });
+        });
+
+        function resetForm() {
+            postForm.reset();
+            imagePreview.style.display = 'none';
+            imagePreview.src = '';
+        }
+
+        // Search functionality
+        const searchBar = document.querySelector('.search-bar');
+        searchBar.addEventListener('input', function(e) {
+            // Implement search functionality here
+            console.log('Searching for:', e.target.value);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serenifi - Music Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="music.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="music.js" defer></script>
+    <style>
+        /* Temporary fix for missing images */
+        .sidebar img, .profile-pic img {
+            background-color: #ddd;
+            min-height: 40px;
+        }
+        
+        /* Additional styles to ensure content is visible */
+        body {
+            min-height: 100vh;
+            background: #f5f5f5;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px;
+        }
+        
+        .c {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .footer-container {
+            padding: 0 20px;
+            margin-left: 250px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar" role="navigation">
+        <div class="logo-container">
+            <h1>Serenifi</h1>
+        </div>
+        <a href="home.html" class="nav-item">🏠 Home</a>
+        <a href="journal.html" class="nav-item">📔 Journal</a>
+        <a href="analytics.html" class="nav-item">📊 Analytics</a>
+        <a href="challenge.html" class="nav-item">🎯 Challenge</a>
+        <a href="reward.html" class="nav-item">🎁 Rewards</a>
+        <a href="game.html" class="nav-item">🎮 Games</a>
+        <a href="music.html" class="nav-item active">🎵 Music</a>
+        <a href="webinar.html" class="nav-item">💻 Webinar</a>
+        <a href="profile.html" class="nav-item">👤 Profile</a>
+        <a href="community.html" class="nav-item">👥 Community</a>
+        <a href="settings.html" class="nav-item">⚙ Settings</a>
+        <a href="#" class="nav-item logout">↪ Logout</a>
+    </nav>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="profile-pic">
+                <span class="profile-icon">👤</span>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search...">
+            </div>
+            <div class="header-icons">
+                <button class="icon-button">🔔</button>
+                <button class="icon-button">⚙️</button>
+                <button class="icon-button">👤</button>
+            </div>
+        </div>
+
+        <div class="c">
+            <div class="header1">
+                <h2>Recommended</h2>
+                <a href="#">View all</a>
+            </div>
+            
+            <div class="music-grid">
+                <div class="music-item">
+                    <div class="image-c">
+                        <img src="https://yt3.googleusercontent.com/G8SxkfNja8kiqENzhxWoysjAObxUh07F5FXR-RVaeJ_Ffu_O0Qv8wrGAyAJ_ZG81E_JxdTYvSw=s900-c-k-c0x00ffffff-no-rj" alt="Forest Lullaby">
+                        <button class="play-button"></button>
+                    </div>
+                    <div class="info">
+                        <h4>Forest Lullaby</h4>
+                        <p class="artist-name">music_for_video</p>
+                    </div>
+                </div>
+                <div class="music-item">
+                    <div class="image-c">
+                        <img src="https://img.freepik.com/premium-photo/top-mountain-view-generated-by-ai_972969-12386.jpg" alt="Beat of Nature">
+                        <button class="play-button"></button>
+                    </div>
+                    <div class="info">
+                        <h4>The Beat of Nature</h4>
+                        <p class="artist-name">folk_acoustic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="c">
+            <div class="header1">
+                <h2>Top Chart this Week</h2>
+            </div>
+            <div class="latest-release-body">
+                <div class="latest-release-col">
+                    <div class="latest-release-entry flex-space">
+                        <div class="latest-release-image">
+                            <img src="https://yt3.googleusercontent.com/G8SxkfNja8kiqENzhxWoysjAObxUh07F5FXR-RVaeJ_Ffu_O0Qv8wrGAyAJ_ZG81E_JxdTYvSw=s900-c-k-c0x00ffffff-no-rj" alt="Forest Lullaby">
+                        </div>
+                        <div class="latest-release-info">
+                            <p><b>Forest Lullaby</b></p>
+                            <p class="latest-release-sub">music_for_video</p>
+                        </div>
+                        <div class="latest-release-options">
+                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                            <p class="latest-release-sub">4:30</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="c">
+            <div class="header1">
+                <h2>Best Relaxation Music</h2>
+            </div>
+            <div class="artist-container">
+                <div class="popular-artist-entry">
+                    <img src="https://img.freepik.com/premium-photo/photo-grand-piano-indoors-theater-place-generative-ai_910608-11884.jpg" alt="Piano">
+                    <p>Piano</p>
+                </div>
+                <div class="popular-artist-entry">
+                    <img src="https://s.hdnux.com/photos/01/40/01/10/25170460/3/ratio3x2_1920.jpg" alt="Flute">
+                    <p>Flute</p>
+                </div>
+                <div class="popular-artist-entry">
+                    <img src="https://4kwallpapers.com/images/wallpapers/thick-forest-green-2732x2732-14725.jpg" alt="Nature">
+                    <p>Nature</p>
+                </div>
+                <div class="popular-artist-entry">
+                    <img src="https://www.kinglarviolin.com/wp-content/uploads/2023/03/b1.jpg" alt="Violin">
+                    <p>Violin</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="music-info flex-space">
+                <div class="music-info-image">
+                    <img src="https://yt3.googleusercontent.com/G8SxkfNja8kiqENzhxWoysjAObxUh07F5FXR-RVaeJ_Ffu_O0Qv8wrGAyAJ_ZG81E_JxdTYvSw=s900-c-k-c0x00ffffff-no-rj" alt="Current Track">
+                </div>
+                <div class="music-info-name">
+                    <p class="music-info-song-name"><b>Forest Lullaby</b></p>
+                    <p class="music-info-sub">music_for_video</p>
+                </div>
+                <div class="music-info-icon">
+                    <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-ban" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="music-player flex-space">
+                <div class="music-player-controls flex-space">
+                    <a class="display-none-520" href="#"><i class="fa fa-random" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
+                    <a class="play-pause" href="#"><i class="fa fa-play-circle-o" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
+                    <a class="display-none-520" href="#"><i class="fa fa-repeat" aria-hidden="true"></i></a>
+                </div>
+                <div class="music-bar flex-space">
+                    <p>0:00</p>
+                    <div class="song-bar"><input type="range" step="1" value="0" min="0" max="100"></div>
+                    <p>0:00</p>
+                </div>
+            </div>
+            <div class="music-options flex-space">
+                <a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-desktop" aria-hidden="true"></i></a>
+                <i class="fa fa-volume-up" aria-hidden="true"></i>
+                <div class="volume-bar"><input type="range" step="1" value="100" min="0" max="100"></div>
+                <a href="#"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
